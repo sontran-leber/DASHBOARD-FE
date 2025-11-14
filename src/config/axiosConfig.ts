@@ -2,9 +2,14 @@ import axios, { AxiosError } from "axios";
 import type { InternalAxiosRequestConfig } from "axios";
 import { getAccessToken, clearAuth } from "@/utils/authUtils";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+if (import.meta.env.DEV) {
+  console.log("🚀 Running in:", import.meta.env.VITE_ENV);
+  console.log("🔗 API URL:", API_BASE_URL);
+}
 // Create Axios instance with base configuration
 const axiosInstance = axios.create({
-  baseURL: "https://your-api.com", // Replace with your actual API base URL
+  baseURL: "http://dev.data.leber.jp", // Replace with your actual API base URL
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",

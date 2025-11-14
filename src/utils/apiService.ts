@@ -6,7 +6,8 @@ export interface LoginCredentials {
 }
 
 export interface AuthResponse {
-  accessToken: string;
+  message: string;
+  token: string;
   // refreshToken: string;
   // user?: {
   //   id: string;
@@ -30,7 +31,7 @@ export const login = async (
 ): Promise<AuthResponse> => {
   try {
     const response = await axiosInstance.post<AuthResponse>(
-      "/auth/login",
+      "/api/v1/auth/login",
       credentials
     );
     return response.data;

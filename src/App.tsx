@@ -4,15 +4,15 @@ import Dashboard from "./pages/DashBoard";
 import { isAuthenticated } from "./utils/authUtils";
 
 // Simple wrapper component for protected routes
-// function ProtectedRoute({ children }: { children: React.ReactNode }) {
-//   if (!isAuthenticated()) {
-//     return <Navigate to="/login" replace />;
-//   }
-//   return <>{children}</>;
-// }
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  if (!isAuthenticated()) {
+    return <Navigate to="/login" replace />;
+  }
   return <>{children}</>;
 }
+// function ProtectedRoute({ children }: { children: React.ReactNode }) {
+//   return <>{children}</>;
+// }
 
 // Simple wrapper component for login route (redirect if already authenticated)
 function PublicRoute({ children }: { children: React.ReactNode }) {
@@ -22,12 +22,15 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+// Root redirect component that checks auth dynamically
+function RootRedirect() {
+  return <Navigate to={isAuthenticated() ? "/dashboard" : "/login"} replace />;
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Navigate to={isAuthenticated() ? "/dashboard" : "/login"} replace />
-    ),
+    element: <RootRedirect />,
   },
   {
     path: "/login",
