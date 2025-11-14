@@ -19,7 +19,7 @@ import { setAuthTokens } from "@/utils/authUtils";
 import type { ApiError } from "@/utils/apiService";
 
 interface LoginFormData {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -97,11 +97,11 @@ export default function LoginPage() {
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
-                id="email"
+                id="username"
                 type="text"
                 placeholder="account name"
-                autoComplete="email"
-                {...register("email", {
+                autoComplete="username"
+                {...register("username", {
                   required: "Email is required",
                   //   pattern: {
                   //     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -109,10 +109,12 @@ export default function LoginPage() {
                   //   },
                 })}
                 disabled={isLoading}
-                className={errors.email ? "border-red-500" : ""}
+                className={errors.username ? "border-red-500" : ""}
               />
-              {errors.email && (
-                <p className="text-sm text-red-500">{errors.email.message}</p>
+              {errors.username && (
+                <p className="text-sm text-red-500">
+                  {errors.username.message}
+                </p>
               )}
             </div>
 

@@ -9,7 +9,7 @@ if (import.meta.env.DEV) {
 }
 // Create Axios instance with base configuration
 const axiosInstance = axios.create({
-  baseURL: "http://dev.data.leber.jp", // Replace with your actual API base URL
+  baseURL: API_BASE_URL, // Replace with your actual API base URL
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -77,9 +77,9 @@ axiosInstance.interceptors.response.use(
         case 401:
           // Unauthorized - Clear auth and redirect to login
           clearAuth();
-          window.location.href = "/login";
+          //   window.location.href = "/login";
           return Promise.reject({
-            message: data?.message || "Session expired. Please login again.",
+            message: data?.error || "Session expired. Please login again.",
             status,
             data,
           });
