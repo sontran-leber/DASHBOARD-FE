@@ -61,7 +61,7 @@ export const refreshToken = async (
  */
 export const logout = async (): Promise<void> => {
   try {
-    await axiosInstance.delete("/auth/logout");
+    await axiosInstance.delete("/api/v1/auth/logout");
   } catch (error) {
     // Ignore errors on logout
     console.error("Logout error:", error);
