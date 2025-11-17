@@ -1,0 +1,73 @@
+name: Deploy Frontend to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build React app
+        run: npm run build
+
+      - name: Deploy to EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.EC2_KEY }}
+          HOST: ${{ secrets.EC2_HOST }}
+          USER: ${{ secrets.EC2_USER }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key.pem
+          chmod 600 private_key.pem
+          
+          echo "📦 Creating deployment package..."
+          tar -czf dist.tar.gz -C dist .
+          
+          echo "📤 Uploading to EC2..."
+          scp -i private_key.pem -o StrictHostKeyChecking=no dist.tar.gz ${USER}@${HOST}:/tmp/dist.tar.gz
+          
+          echo "🚀 Deploying on EC2..."
+          ssh -i private_key.pem -o StrictHostKeyChecking=no ${USER}@${HOST} << 'ENDSSH'
+            if [ -d "/var/www/frontend" ]; then
+              echo "💾 Creating backup..."
+              sudo cp -r /var/www/frontend /var/www/frontend.backup.$(date +%Y%m%d_%H%M%S)
+            fi
+            
+            echo "🧹 Clearing old files..."
+            sudo rm -rf /var/www/frontend/*
+            
+            echo "📂 Extracting new files..."
+            sudo tar -xzf /tmp/dist.tar.gz -C /var/www/frontend/
+            
+            echo "🔐 Setting permissions..."
+            sudo chown -R nginx:nginx /var/www/frontend
+            sudo chmod -R 755 /var/www/frontend
+            
+            rm /tmp/dist.tar.gz
+            
+            echo "🔄 Reloading web server..."
+            if command -v nginx &> /dev/null; then
+              sudo systemctl reload nginx
+            elif command -v httpd &> /dev/null; then
+              sudo systemctl reload httpd
+            fi
+            
+            echo "✅ Deployment completed successfully!"
+          ENDSSH
+          
+          rm private_key.pem
+          echo "🎉 Deployment finished!"
