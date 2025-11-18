@@ -6,7 +6,6 @@ import { Loader2 } from "lucide-react";
 import { clearAuth, getUser } from "@/utils/authUtils";
 import { getDashboardData, logout } from "@/utils/apiService";
 import type { ApiError } from "@/utils/apiService";
-import ChartsExample from "@/components/ui/ChartExample";
 import MetricCard from "@/components/ui/MetricCard";
 import ChartModal from "@/components/ui/ChartModal";
 import { chartData, barChartConfig, lineChartConfig } from "@/utils/chartData";
