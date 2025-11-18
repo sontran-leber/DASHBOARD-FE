@@ -135,8 +135,8 @@ export default function Dashboard() {
             </>
           )}
         </div>
-
-        <ChartsExample />
+        {/* 
+        <ChartsExample /> */}
       </div>
 
       {/* Chart Modal */}
