@@ -85,7 +85,13 @@ export const getUserProfile = async (): Promise<any> => {
  */
 export const getDashboardData = async (): Promise<any> => {
   try {
-    const response = await axiosInstance.get("/dashboard");
+    const response = await axiosInstance.get("/api/v1/metrics/doctor-actions", {
+      params: {
+        period: "weekly",
+        count: 14,
+      },
+    });
+    console.log(response.data);
     return response.data;
   } catch (error) {
     throw error as ApiError;
