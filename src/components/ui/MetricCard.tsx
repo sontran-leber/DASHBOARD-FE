@@ -43,7 +43,7 @@ export default function MetricCard({
             <span className="text-sm font-medium">
               {Math.abs(trend).toFixed(1)}%
             </span>
-            <span className="text-xs text-gray-500 ml-1">vs last month</span>
+            <span className="text-xs text-gray-500 ml-1">vs last week</span>
           </div>
         </div>
       </CardContent>

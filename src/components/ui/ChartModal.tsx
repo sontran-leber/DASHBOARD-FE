@@ -58,7 +58,7 @@ export default function ChartModal({
                 <BarChart accessibilityLayer data={chartData}>
                   <CartesianGrid vertical={true} />
                   <XAxis
-                    dataKey="month"
+                    dataKey="week"
                     tickLine={true}
                     tickMargin={10}
                     axisLine={true}
@@ -100,7 +100,7 @@ export default function ChartModal({
                 <BarChart accessibilityLayer data={chartData}>
                   <CartesianGrid vertical={true} />
                   <XAxis
-                    dataKey="month"
+                    dataKey="week"
                     tickLine={true}
                     tickMargin={10}
                     axisLine={true}
@@ -151,7 +151,7 @@ export default function ChartModal({
                 >
                   <CartesianGrid vertical={true} />
                   <XAxis
-                    dataKey="month"
+                    dataKey="week"
                     tickLine={true}
                     axisLine={true}
                     tickMargin={8}
