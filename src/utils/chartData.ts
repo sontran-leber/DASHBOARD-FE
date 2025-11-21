@@ -23,7 +23,7 @@ const generateWeeklyData = () => {
 
   for (let i = 0; i <= 13; i++) {
     data.push({
-      week: `${weeks}`,
+      week: `${weeks[i]}`,
       revenue: Math.floor(Math.random() * 50000) + 30000, // Random revenue between 30k-80k
       expenses: Math.floor(Math.random() * 30000) + 20000, // Random expenses between 20k-50k
       users: Math.floor(Math.random() * 5000) + 2000, // Random users between 2k-7k

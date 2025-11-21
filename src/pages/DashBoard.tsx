@@ -106,6 +106,11 @@ export default function Dashboard() {
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h2 className="text-3xl font-bold text-gray-900">Section 1</h2>
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {metrics && (
@@ -134,11 +139,39 @@ export default function Dashboard() {
             </>
           )}
         </div>
-        {/* 
-        <ChartsExample /> */}
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h2 className="text-3xl font-bold text-gray-900">Section 2</h2>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          {metrics && (
+            <>
+              <MetricCard
+                title="Revenue"
+                value={metrics.revenue.value}
+                trend={metrics.revenue.trend}
+                description="Total monthly revenue"
+                onClick={() => setSelectedChart("revenue")}
+              />
+              <MetricCard
+                title="Expenses"
+                value={metrics.expenses.value}
+                trend={metrics.expenses.trend}
+                description="Total monthly expenses"
+                onClick={() => setSelectedChart("expenses")}
+              />
+              <MetricCard
+                title="Active Users"
+                value={metrics.users.value}
+                trend={metrics.users.trend}
+                description="Monthly active users"
+                onClick={() => setSelectedChart("users")}
+              />
+            </>
+          )}
+        </div>
       </div>
-
-      {/* Chart Modal */}
       <ChartModal
         isOpen={selectedChart !== null}
         onClose={() => setSelectedChart(null)}

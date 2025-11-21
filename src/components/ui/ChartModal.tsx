@@ -62,7 +62,7 @@ export default function ChartModal({
                     tickLine={true}
                     tickMargin={10}
                     axisLine={true}
-                    tickFormatter={(value) => value.slice(0, 3)}
+                    // tickFormatter={(value) => value.slice(0, 4)}
                   />
                   <YAxis
                     tickLine={true}
@@ -104,7 +104,7 @@ export default function ChartModal({
                     tickLine={true}
                     tickMargin={10}
                     axisLine={true}
-                    tickFormatter={(value) => value.slice(0, 3)}
+                    // tickFormatter={(value) => value.slice(0, 3)}
                   />
                   <YAxis
                     tickLine={true}
@@ -155,7 +155,7 @@ export default function ChartModal({
                     tickLine={true}
                     axisLine={true}
                     tickMargin={8}
-                    tickFormatter={(value) => value.slice(0, 3)}
+                    // tickFormatter={(value) => value.slice(0, 3)}
                   />
                   <YAxis
                     tickLine={true}
@@ -165,7 +165,7 @@ export default function ChartModal({
                   />
                   <ChartTooltip
                     cursor={true}
-                    content={<ChartTooltipContent hideLabel />}
+                    content={<ChartTooltipContent indicator="dashed" />}
                   />
                   <Line
                     dataKey="users"
