@@ -69,21 +69,9 @@ export const logout = async (): Promise<void> => {
 };
 
 /**
- * Get user profile (example protected endpoint)
- */
-export const getUserProfile = async (): Promise<any> => {
-  try {
-    const response = await axiosInstance.get("/user/profile");
-    return response.data;
-  } catch (error) {
-    throw error as ApiError;
-  }
-};
-
-/**
  * Example: Get dashboard data (protected endpoint)
  */
-export const getDashboardData = async (): Promise<any> => {
+export const getDoctorActionData = async (): Promise<any> => {
   try {
     const response = await axiosInstance.get("/api/v1/metrics/doctor-actions", {
       params: {
@@ -91,7 +79,20 @@ export const getDashboardData = async (): Promise<any> => {
         count: 14,
       },
     });
-    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error as ApiError;
+  }
+};
+
+export const getAllData = async (): Promise<any> => {
+  try {
+    const response = await axiosInstance.get("/api/v1/metrics/all", {
+      params: {
+        period: "weekly",
+        count: 14,
+      },
+    });
     return response.data;
   } catch (error) {
     throw error as ApiError;

@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -23,8 +23,19 @@ export default function MetricCard({
   onClick,
 }: MetricCardProps) {
   const isPositive = trend > 0;
-  const trendColor = isPositive ? "text-green-600" : "text-red-600";
-  const TrendIcon = isPositive ? TrendingUp : TrendingDown;
+  const isUnchanged = trend === 0;
+
+  const trendColor = isUnchanged
+    ? "text-gray-500"
+    : isPositive
+    ? "text-green-600"
+    : "text-red-600";
+
+  const TrendIcon = isUnchanged
+    ? Minus
+    : isPositive
+    ? TrendingUp
+    : TrendingDown;
 
   return (
     <Card

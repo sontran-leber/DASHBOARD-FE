@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/DashBoard";
 import { isAuthenticated } from "./utils/authUtils";
+import { Suspense } from "react";
 
 // Simple wrapper component for protected routes
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -10,9 +11,6 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   }
   return <>{children}</>;
 }
-// function ProtectedRoute({ children }: { children: React.ReactNode }) {
-//   return <>{children}</>;
-// }
 
 // Simple wrapper component for login route (redirect if already authenticated)
 function PublicRoute({ children }: { children: React.ReactNode }) {
@@ -55,7 +53,14 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
+}
+function Loading() {
+  return <h2>🌀 Loading...</h2>;
 }
 
 export default App;

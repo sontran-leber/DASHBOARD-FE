@@ -25,7 +25,7 @@ import { Button } from "@/components/ui/button";
 interface ChartModalProps {
   isOpen: boolean;
   onClose: () => void;
-  chartType: "revenue" | "expenses" | "users" | null;
+  chartType: "firstResponse" | "continuousResponse" | null;
   chartData: any[];
   barChartConfig: any;
   lineChartConfig: any;
@@ -43,7 +43,7 @@ export default function ChartModal({
 
   const renderChart = () => {
     switch (chartType) {
-      case "revenue":
+      case "firstResponse":
         return (
           <Card className="border-0 shadow-none">
             <CardHeader>
@@ -68,15 +68,15 @@ export default function ChartModal({
                     tickLine={true}
                     axisLine={true}
                     tickMargin={10}
-                    tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+                    tickFormatter={(value) => `${value.toFixed(0)}%`}
                   />
                   <ChartTooltip
                     cursor={true}
                     content={<ChartTooltipContent indicator="dashed" />}
                   />
                   <Bar
-                    dataKey="revenue"
-                    fill="var(--color-revenue)"
+                    dataKey="firstResponseRate"
+                    fill="var(--color-generalConfig)"
                     radius={4}
                   />
                 </BarChart>
@@ -85,49 +85,7 @@ export default function ChartModal({
           </Card>
         );
 
-      case "expenses":
-        return (
-          <Card className="border-0 shadow-none">
-            <CardHeader>
-              <CardTitle>Expenses Trend</CardTitle>
-              <CardDescription>Monthly expenses over 2 years</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ChartContainer
-                config={barChartConfig}
-                className="h-[400px] w-full"
-              >
-                <BarChart accessibilityLayer data={chartData}>
-                  <CartesianGrid vertical={true} />
-                  <XAxis
-                    dataKey="week"
-                    tickLine={true}
-                    tickMargin={10}
-                    axisLine={true}
-                    // tickFormatter={(value) => value.slice(0, 3)}
-                  />
-                  <YAxis
-                    tickLine={true}
-                    axisLine={true}
-                    tickMargin={10}
-                    tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
-                  />
-                  <ChartTooltip
-                    cursor={true}
-                    content={<ChartTooltipContent indicator="dashed" />}
-                  />
-                  <Bar
-                    dataKey="expenses"
-                    fill="var(--color-expenses)"
-                    radius={4}
-                  />
-                </BarChart>
-              </ChartContainer>
-            </CardContent>
-          </Card>
-        );
-
-      case "users":
+      case "continuousResponse":
         return (
           <Card className="border-0 shadow-none">
             <CardHeader>
@@ -161,16 +119,16 @@ export default function ChartModal({
                     tickLine={true}
                     axisLine={true}
                     tickMargin={10}
-                    tickFormatter={(value) => `${(value / 1000).toFixed(1)}k`}
+                    tickFormatter={(value) => `${value.toFixed(1)}%`}
                   />
                   <ChartTooltip
                     cursor={true}
                     content={<ChartTooltipContent indicator="dashed" />}
                   />
                   <Line
-                    dataKey="users"
+                    dataKey="continuousResponseRate"
                     type="monotone"
-                    stroke="var(--color-users)"
+                    stroke="var(--color-generalConfig)"
                     strokeWidth={2}
                     dot={true}
                   />
