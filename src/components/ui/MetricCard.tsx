@@ -52,7 +52,7 @@ export default function MetricCard({
           <div className={`flex items-center gap-1 ${trendColor}`}>
             <TrendIcon className="h-4 w-4" />
             <span className="text-sm font-medium">
-              {Math.abs(trend).toFixed(1)}%
+              {Math.abs(trend).toFixed(1)}
             </span>
             <span className="text-xs text-gray-500 ml-1">vs last week</span>
           </div>
