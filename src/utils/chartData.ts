@@ -120,10 +120,10 @@ export const chartAllData = generalWeeklyData();
 
 // Configuration for the chart
 
-export default function chartConfig(name: string, color?: string) {
+export default function chartConfig(name?: string, color?: string) {
   const config = {
     generalConfig: {
-      label: name,
+      label: name || "General",
       color: color || "#3b82f6",
     },
   } satisfies ChartConfig;

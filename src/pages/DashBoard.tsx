@@ -11,7 +11,55 @@ import ChartModal from "@/components/ui/ChartModal";
 import { chartAllData } from "@/utils/chartData";
 import chartConfig from "@/utils/chartData";
 
-type ChartType = "firstResponse" | "continuousResponse";
+type ChartType =
+  | "firstResponse"
+  | "continuousResponse"
+  | "designatedConsultationResponse"
+  | "favoriteConsultationResponse"
+  | "generalConsultationResponse"
+  | "totalConsultation"
+  | "cumulativePatientConsultations"
+  | "cumulativeUserConsultations"
+  | "careFacilityCount"
+  | "careFacilityUserCount"
+  | "companyCount"
+  | "companyUserCount"
+  | "billingAmount"
+  | "billingUsers"
+  | "designatedConsultationUsers"
+  | "favoriteConsultationUsers"
+  | "generalConsultationUsers"
+  | "doctorRatingSinceStart"
+  | "doctorRating"
+  | "premiumConsultations"
+  | "superPremiumConsultations"
+  | "totalPaidMemberConsultations"
+  | "mentalCheckCount"
+  | "poolConsultationCount"
+  | "schoolCount"
+  | "paidMemberAdditionsTotal"
+  | "paidMemberAdditions"
+  | "paidMembers"
+  | "premiumAdditions"
+  | "superPremiumAdditions"
+  | "trialAdditions"
+  | "trialUsersTotal"
+  | "schoolAccountsTotal"
+  | "schoolAccountsType3"
+  | "schoolAccountsType4"
+  | "doctorCount"
+  | "patientAccounts"
+  | "personalUsers"
+  | "schoolUsersCompanyGovernment"
+  | "schoolUsersPremium"
+  | "schoolUsersStarter"
+  | "schoolUsersSuperPremium"
+  | "schoolUsersTotal"
+  | "schoolUsersTrial"
+  | "totalUsers"
+  | "companyGovernmentConsultations"
+  | "personalConsultations"
+  | "schoolConsultations";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -458,25 +506,27 @@ export default function Dashboard() {
                 onClick={() => setSelectedChart("continuousResponse")}
               />
               <MetricCard
-                title="Designated Consultation Response Rate Weekly"
+                title="Designated Consultation Response Speed Weekly"
                 value={metrics.designatedConsultationResponseSpeedWeekly.value}
                 trend={metrics.designatedConsultationResponseSpeedWeekly.trend}
                 description="Weekly designated consultation response rate over the last 14 weeks"
-                onClick={() => setSelectedChart("continuousResponse")}
+                onClick={() =>
+                  setSelectedChart("designatedConsultationResponse")
+                }
               />
               <MetricCard
                 title="Favorite Consultation Response Speed Weekly"
                 value={metrics.favoriteConsultationResponseSpeedWeekly.value}
                 trend={metrics.favoriteConsultationResponseSpeedWeekly.trend}
                 description="Weekly favorite consultation response speed over the last 14 weeks"
-                onClick={() => setSelectedChart("continuousResponse")}
+                onClick={() => setSelectedChart("favoriteConsultationResponse")}
               />
               <MetricCard
                 title="General Consultation Response Speed Weekly"
                 value={metrics.generalConsultationResponseSpeedWeekly.value}
                 trend={metrics.generalConsultationResponseSpeedWeekly.trend}
                 description="Weekly general consultation response speed over the last 14 weeks"
-                onClick={() => setSelectedChart("continuousResponse")}
+                onClick={() => setSelectedChart("generalConsultationResponse")}
               />
             </>
           )}
@@ -490,11 +540,11 @@ export default function Dashboard() {
           {metrics && (
             <>
               <MetricCard
-                title="Total consultation"
+                title="Total Consultation"
                 value={metrics.totalConsultation.value}
                 trend={metrics.totalConsultation.trend}
                 description="Total consultation over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("totalConsultation")}
               />
             </>
           )}
@@ -514,14 +564,16 @@ export default function Dashboard() {
                 value={metrics.cumulativePatientConsultations.value}
                 trend={metrics.cumulativePatientConsultations.trend}
                 description="Cumulative patient consultations over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() =>
+                  setSelectedChart("cumulativePatientConsultations")
+                }
               />
               <MetricCard
                 title="Cumulative User Consultations"
                 value={metrics.cumulativeUserConsultations.value}
                 trend={metrics.cumulativeUserConsultations.trend}
                 description="Cumulative user consultations over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("cumulativeUserConsultations")}
               />
             </>
           )}
@@ -541,28 +593,28 @@ export default function Dashboard() {
                 value={metrics.careFacilityCount.value}
                 trend={metrics.careFacilityCount.trend}
                 description="Care facility count over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("careFacilityCount")}
               />
               <MetricCard
                 title="Care Facility User Count"
                 value={metrics.careFacilityUserCount.value}
                 trend={metrics.careFacilityUserCount.trend}
                 description="Care facility user count over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("careFacilityUserCount")}
               />
               <MetricCard
                 title="Company Count"
                 value={metrics.companyCount.value}
                 trend={metrics.companyCount.trend}
                 description="Company count over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("companyCount")}
               />
               <MetricCard
                 title="Company User Count"
                 value={metrics.companyUserCount.value}
                 trend={metrics.companyUserCount.trend}
                 description="Company user count over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("companyUserCount")}
               />
             </>
           )}
@@ -582,35 +634,35 @@ export default function Dashboard() {
                 value={metrics.billingAmountWeekly.value}
                 trend={metrics.billingAmountWeekly.trend}
                 description="Weekly billing amount over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("billingAmount")}
               />
               <MetricCard
                 title="Billing Users Weekly"
                 value={metrics.billingUsersWeekly.value}
                 trend={metrics.billingUsersWeekly.trend}
                 description="Weekly billing users over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("billingUsers")}
               />
               <MetricCard
                 title="Designated Consultation Users Weekly"
                 value={metrics.designatedConsultationUsersWeekly.value}
                 trend={metrics.designatedConsultationUsersWeekly.trend}
                 description="Weekly designated consultation users over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("designatedConsultationUsers")}
               />
               <MetricCard
                 title="Favorite Consultation Users Weekly"
                 value={metrics.favoriteConsultationUsersWeekly.value}
                 trend={metrics.favoriteConsultationUsersWeekly.trend}
                 description="Weekly favorite consultation users over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("favoriteConsultationUsers")}
               />
               <MetricCard
                 title="General Consultation Users Weekly"
                 value={metrics.generalConsultationUsersWeekly.value}
                 trend={metrics.generalConsultationUsersWeekly.trend}
                 description="Weekly general consultation users over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("generalConsultationUsers")}
               />
             </>
           )}
@@ -628,14 +680,14 @@ export default function Dashboard() {
                 value={metrics.doctorRatingSinceStart.value}
                 trend={metrics.doctorRatingSinceStart.trend}
                 description="Doctor rating since start over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("doctorRatingSinceStart")}
               />
               <MetricCard
                 title="Doctor Rating Weekly"
                 value={metrics.doctorRatingWeekly.value}
                 trend={metrics.doctorRatingWeekly.trend}
                 description="Weekly doctor rating over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("doctorRating")}
               />
             </>
           )}
@@ -655,21 +707,21 @@ export default function Dashboard() {
                 value={metrics.premiumConsultations.value}
                 trend={metrics.premiumConsultations.trend}
                 description="Premium consultations over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("premiumConsultations")}
               />
               <MetricCard
                 title="Super Premium Consultations"
                 value={metrics.superPremiumConsultations.value}
                 trend={metrics.superPremiumConsultations.trend}
                 description="Super premium consultations over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("superPremiumConsultations")}
               />
               <MetricCard
                 title="Total Paid Member Consultations"
                 value={metrics.totalPaidMemberConsultations.value}
                 trend={metrics.totalPaidMemberConsultations.trend}
                 description="Total paid member consultations over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("totalPaidMemberConsultations")}
               />
             </>
           )}
@@ -689,21 +741,21 @@ export default function Dashboard() {
                 value={metrics.mentalCheckCount.value}
                 trend={metrics.mentalCheckCount.trend}
                 description="Mental checkCount over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("mentalCheckCount")}
               />
               <MetricCard
                 title="Pool Consultation Count"
                 value={metrics.poolConsultationCount.value}
                 trend={metrics.poolConsultationCount.trend}
                 description="Pool consultation count over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("poolConsultationCount")}
               />
               <MetricCard
                 title="School Count"
                 value={metrics.schoolCount.value}
                 trend={metrics.schoolCount.trend}
                 description="School count over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("schoolCount")}
               />
             </>
           )}
@@ -723,49 +775,49 @@ export default function Dashboard() {
                 value={metrics.paidMemberAdditionsTotal.value}
                 trend={metrics.paidMemberAdditionsTotal.trend}
                 description="Paid member additions total over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("paidMemberAdditionsTotal")}
               />
               <MetricCard
                 title="Paid Member Additions Weekly"
                 value={metrics.paidMemberAdditionsWeekly.value}
                 trend={metrics.paidMemberAdditionsWeekly.trend}
                 description="Weekly paid member additions over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("paidMemberAdditions")}
               />
               <MetricCard
                 title="Paid Members"
                 value={metrics.paidMembers.value}
                 trend={metrics.paidMembers.trend}
                 description="Paid members over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("paidMembers")}
               />
               <MetricCard
                 title="Premium Additions Weekly"
                 value={metrics.premiumAdditionsWeekly.value}
                 trend={metrics.premiumAdditionsWeekly.trend}
                 description="Premium additions weekly over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("premiumAdditions")}
               />
               <MetricCard
                 title="Super Premium Additions Weekly"
                 value={metrics.superPremiumAdditionsWeekly.value}
                 trend={metrics.superPremiumAdditionsWeekly.trend}
                 description="Super premium additions weekly over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("superPremiumAdditions")}
               />
               <MetricCard
                 title="Trial Additions Weekly"
                 value={metrics.trialAdditionsWeekly.value}
                 trend={metrics.trialAdditionsWeekly.trend}
                 description="Weekly trial additions over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("trialAdditions")}
               />
               <MetricCard
                 title="Trial Users Weekly"
                 value={metrics.trialUsersTotal.value}
                 trend={metrics.trialUsersTotal.trend}
                 description="Weekly trial users over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("trialUsersTotal")}
               />
             </>
           )}
@@ -785,21 +837,21 @@ export default function Dashboard() {
                 value={metrics.schoolAccountsTotal.value}
                 trend={metrics.schoolAccountsTotal.trend}
                 description="School accounts total over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("schoolAccountsTotal")}
               />
               <MetricCard
                 title="School Accounts Type 3"
                 value={metrics.schoolAccountsType3.value}
                 trend={metrics.schoolAccountsType3.trend}
                 description="School accounts type 3 over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("schoolAccountsType3")}
               />
               <MetricCard
                 title="School Accounts Type 4"
                 value={metrics.schoolAccountsType4.value}
                 trend={metrics.schoolAccountsType4.trend}
                 description="School accounts type 4 over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("schoolAccountsType4")}
               />
             </>
           )}
@@ -819,70 +871,70 @@ export default function Dashboard() {
                 value={metrics.doctorCount.value}
                 trend={metrics.doctorCount.trend}
                 description="Doctor count over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("doctorCount")}
               />
               <MetricCard
                 title="Patient Accounts"
                 value={metrics.patientAccounts.value}
                 trend={metrics.patientAccounts.trend}
                 description="Patient accounts over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("patientAccounts")}
               />
               <MetricCard
                 title="Personal Users"
                 value={metrics.personalUsers.value}
                 trend={metrics.personalUsers.trend}
                 description="Personal users over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("personalUsers")}
               />
               <MetricCard
                 title="School Users Company Government"
                 value={metrics.schoolUsersCompanyGovernment.value}
                 trend={metrics.schoolUsersCompanyGovernment.trend}
                 description="School users company government over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("schoolUsersCompanyGovernment")}
               />
               <MetricCard
                 title="School Users Premium"
                 value={metrics.schoolUsersPremium.value}
                 trend={metrics.schoolUsersPremium.trend}
                 description="School users premium over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("schoolUsersPremium")}
               />
               <MetricCard
                 title="School Users Starter"
                 value={metrics.schoolUsersStarter.value}
                 trend={metrics.schoolUsersStarter.trend}
                 description="School users starter over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("schoolUsersStarter")}
               />
               <MetricCard
                 title="School Users Super Premium"
                 value={metrics.schoolUsersSuperPremium.value}
                 trend={metrics.schoolUsersSuperPremium.trend}
                 description="School users super premium over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("schoolUsersSuperPremium")}
               />
               <MetricCard
                 title="School Users Total"
                 value={metrics.schoolUsersTotal.value}
                 trend={metrics.schoolUsersTotal.trend}
                 description="School users total over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("schoolUsersTotal")}
               />
               <MetricCard
                 title="School Users Trial"
                 value={metrics.schoolUsersTrial.value}
                 trend={metrics.schoolUsersTrial.trend}
                 description="School users trial over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("schoolUsersTrial")}
               />
               <MetricCard
                 title="Total Users"
                 value={metrics.totalUsers.value}
                 trend={metrics.totalUsers.trend}
                 description="Total users over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("totalUsers")}
               />
             </>
           )}
@@ -902,21 +954,23 @@ export default function Dashboard() {
                 value={metrics.companyGovernmentConsultations.value}
                 trend={metrics.companyGovernmentConsultations.trend}
                 description="Company government consultations over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() =>
+                  setSelectedChart("companyGovernmentConsultations")
+                }
               />
               <MetricCard
                 title="Personal Consultations"
                 value={metrics.personalConsultations.value}
                 trend={metrics.personalConsultations.trend}
                 description="Personal consultations over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("personalConsultations")}
               />
               <MetricCard
                 title="School Consultations"
                 value={metrics.schoolConsultations.value}
                 trend={metrics.schoolConsultations.trend}
                 description="School consultations over the last 14 weeks"
-                onClick={() => setSelectedChart("firstResponse")}
+                onClick={() => setSelectedChart("schoolConsultations")}
               />
             </>
           )}
@@ -927,8 +981,8 @@ export default function Dashboard() {
         onClose={() => setSelectedChart(null)}
         chartType={selectedChart}
         chartData={chartData}
-        barChartConfig={chartConfig("First Response Rate")}
-        lineChartConfig={chartConfig("Continuous Response Rate", "#a7a7a7")}
+        barChartConfig={chartConfig()}
+        lineChartConfig={chartConfig(undefined, "#a7a7a7")}
       />
     </div>
   );
