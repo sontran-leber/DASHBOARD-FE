@@ -68,21 +68,6 @@ export default function Dashboard() {
   const [error, setError] = useState<string>("");
   const [selectedChart, setSelectedChart] = useState<ChartType | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-      } catch (err) {
-        const apiError = err as ApiError;
-        setError(apiError.message || "Failed to load dashboard data");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   const handleLogout = async () => {
     try {
       await logout();
@@ -447,8 +432,24 @@ export default function Dashboard() {
   const [chartData, setChartData] = useState<Awaited<typeof chartAllData>>([]);
 
   useEffect(() => {
-    getMetrics().then(setMetrics);
-    chartAllData.then(setChartData);
+    const loadData = async () => {
+      try {
+        setIsLoading(true);
+        const [metricsData, chartDataResult] = await Promise.all([
+          getMetrics(),
+          chartAllData,
+        ]);
+        setMetrics(metricsData);
+        setChartData(chartDataResult);
+      } catch (err) {
+        const apiError = err as ApiError;
+        setError(apiError.message || "Failed to load dashboard data");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadData();
   }, []);
 
   if (isLoading) {
