@@ -6,7 +6,9 @@ import { Suspense } from "react";
 
 // Simple wrapper component for protected routes
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  if (!isAuthenticated()) {
+  const authenticated = isAuthenticated();
+
+  if (!authenticated) {
     return <Navigate to="/login" replace />;
   }
   return <>{children}</>;
@@ -14,22 +16,15 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
 // Simple wrapper component for login route (redirect if already authenticated)
 function PublicRoute({ children }: { children: React.ReactNode }) {
-  if (isAuthenticated()) {
+  const authenticated = isAuthenticated();
+
+  if (authenticated) {
     return <Navigate to="/dashboard" replace />;
   }
   return <>{children}</>;
 }
 
-// Root redirect component that checks auth dynamically
-function RootRedirect() {
-  return <Navigate to={isAuthenticated() ? "/dashboard" : "/login"} replace />;
-}
-
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <RootRedirect />,
-  },
   {
     path: "/login",
     element: (
@@ -47,8 +42,12 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/",
+    element: <Navigate to="/login" replace />,
+  },
+  {
     path: "*",
-    element: <Navigate to="/" replace />,
+    element: <Navigate to="/login" replace />,
   },
 ]);
 
