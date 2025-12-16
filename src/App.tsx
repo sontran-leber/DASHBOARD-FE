@@ -1,8 +1,10 @@
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
-import LoginPage from "./pages/LoginPage";
-import Dashboard from "./pages/DashBoard";
 import { isAuthenticated } from "./utils/authUtils";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
+
+// Lazy load pages for code splitting and Suspense support
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const Dashboard = lazy(() => import("./pages/DashBoard"));
 
 // Simple wrapper component for protected routes
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -58,8 +60,16 @@ function App() {
     </Suspense>
   );
 }
+
 function Loading() {
-  return <h2>🌀 Loading...</h2>;
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="text-center">
+        <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mb-4"></div>
+        <h2 className="text-xl font-semibold text-gray-700">Loading...</h2>
+      </div>
+    </div>
+  );
 }
 
 export default App;
