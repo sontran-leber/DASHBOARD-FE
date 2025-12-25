@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2 } from "lucide-react";
+import { Loader2, FileDown } from "lucide-react";
 import { clearAuth, getUser } from "@/utils/authUtils";
 import { logout } from "@/utils/apiService";
 import type { ApiError } from "@/utils/apiService";
@@ -10,6 +10,8 @@ import MetricCard from "@/components/ui/MetricCard";
 import ChartModal from "@/components/ui/ChartModal";
 import { chartAllData } from "@/utils/chartData";
 import chartConfig from "@/utils/chartData";
+import { pdf } from "@react-pdf/renderer";
+import DashboardPDFDocument from "@/components/PDFDocument";
 
 type ChartType =
   | "firstResponse"
@@ -76,6 +78,41 @@ export default function Dashboard() {
     } finally {
       clearAuth();
       navigate("/login", { replace: true });
+    }
+  };
+
+  const handleExportPDF = async () => {
+    if (!metrics) {
+      alert("No data available to export");
+      return;
+    }
+
+    try {
+      // Generate PDF document
+      const doc = (
+        <DashboardPDFDocument
+          userName={user?.name || user?.email || "User"}
+          date={new Date().toLocaleDateString()}
+          metrics={metrics}
+        />
+      );
+
+      // Create blob from PDF
+      const asPdf = pdf(doc);
+      const blob = await asPdf.toBlob();
+
+      // Create download link
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `dashboard-report-${new Date().toISOString().split("T")[0]}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      alert("Failed to generate PDF. Please try again.");
     }
   };
 
@@ -473,9 +510,15 @@ export default function Dashboard() {
               Welcome back, {user?.name || user?.email || "User"}!!
             </p>
           </div>
-          <Button onClick={handleLogout} variant="outline">
-            Logout
-          </Button>
+          <div className="flex gap-3">
+            <Button onClick={handleExportPDF} variant="outline" className="gap-2">
+              <FileDown className="h-4 w-4" />
+              Export to PDF
+            </Button>
+            <Button onClick={handleLogout} variant="outline">
+              Logout
+            </Button>
+          </div>
         </div>
 
         {error && (

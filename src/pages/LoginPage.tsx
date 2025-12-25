@@ -99,7 +99,7 @@ export default function LoginPage() {
               <Input
                 id="username"
                 type="text"
-                placeholder="account name"
+                placeholder="Enter your account name"
                 autoComplete="username"
                 {...register("username", {
                   required: "Email is required",

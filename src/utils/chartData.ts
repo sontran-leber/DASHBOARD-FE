@@ -124,7 +124,7 @@ export default function chartConfig(name?: string, color?: string) {
   const config = {
     generalConfig: {
       label: name || "General",
-      color: color || "#3b82f6",
+      color: color || "rgba(147, 197, 253, 0.7)", // Pale blue with 70% opacity
     },
   } satisfies ChartConfig;
   return config;
