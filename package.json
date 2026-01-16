@@ -11,7 +11,13 @@
     "build:dev": "tsc -b && vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "preview:staging": "vite preview --mode staging"
+    "preview:staging": "vite preview --mode staging",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report",
+    "test:codegen": "playwright codegen http://localhost:5173"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.7",
@@ -32,7 +38,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
-    "@types/node": "^24.9.2",
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^24.10.7",
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.1.0",
